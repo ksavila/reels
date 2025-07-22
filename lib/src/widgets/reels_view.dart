@@ -16,7 +16,7 @@ class ReelsView extends StatefulWidget {
 }
 
 class _ReelsViewState extends State<ReelsView>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late PageController _pageController;
   late List<VideoPlayerController?> _videoControllers;
   late AnimationController _likeAnimationController;
@@ -24,6 +24,13 @@ class _ReelsViewState extends State<ReelsView>
   final ValueNotifier<bool> _isLiked = ValueNotifier(false);
   int _currentPage = 0;
   final int _preloadCount = 2; // Pre-load 2 videos before and after
+
+  // for swipe up and down to dismiss
+  double _dragDistance = 0.0;
+  late AnimationController _dismissAnimationController;
+  late Animation<double> _dismissAnimation;
+  late Animation<double> _scaleAnimation;
+  late Animation<Color?> _backgroundAnimation;
 
   @override
   void initState() {
@@ -37,6 +44,25 @@ class _ReelsViewState extends State<ReelsView>
     );
     _likeAnimation =
         Tween<double>(begin: 0, end: 1).animate(_likeAnimationController);
+
+    _dismissAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _dismissAnimation =
+        Tween<double>(begin: 1.0, end: 0.0).animate(_dismissAnimationController)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              Navigator.of(context).pop();
+            }
+          });
+    _scaleAnimation =
+        Tween<double>(begin: 1.0, end: 0.8).animate(_dismissAnimationController);
+    _backgroundAnimation = ColorTween(
+      begin: Colors.transparent,
+      end: Colors.black.withOpacity(0.5),
+    ).animate(_dismissAnimationController);
+
     _initializeControllersForPage(_currentPage);
   }
 
@@ -47,6 +73,7 @@ class _ReelsViewState extends State<ReelsView>
       controller?.dispose();
     }
     _likeAnimationController.dispose();
+    _dismissAnimationController.dispose();
     _isLiked.dispose();
     super.dispose();
   }
@@ -142,47 +169,92 @@ class _ReelsViewState extends State<ReelsView>
     // Implement follow logic
   }
 
+  void _onVerticalDragUpdate(DragUpdateDetails details) {
+    setState(() {
+      _dragDistance += details.delta.dy;
+      // Update animation value based on drag distance
+      _dismissAnimationController.value =
+          (_dragDistance / context.size!.height).abs().clamp(0.0, 1.0);
+    });
+  }
+
+  void _onVerticalDragEnd(DragEndDetails details) {
+    final velocity = details.primaryVelocity ?? 0;
+    if (velocity.abs() > 500 || _dragDistance.abs() > 100) {
+      _dismissAnimationController.forward();
+    } else {
+      _dismissAnimationController.reverse().then((_) {
+        setState(() {
+          _dragDistance = 0;
+        });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView.builder(
-        controller: _pageController,
-        scrollDirection: Axis.vertical,
-        itemCount: widget.reels.length,
-        onPageChanged: _onPageChanged,
-        itemBuilder: (context, index) {
-          // Always build the VideoReel, and let it handle the loading state internally.
-          // This ensures the thumbnail is shown while the video is loading.
-          final controller = _videoControllers[index];
-          if (controller == null) {
-            // This can happen if the page is outside the preload range.
-            // Return a placeholder that shows the thumbnail.
-            return Stack(
-              fit: StackFit.expand,
-              children: [
-                CachedNetworkImage(
-                  imageUrl: widget.reels[index].thumbnailUrl,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) =>
-                      const Icon(Icons.error),
-                ),
-                const Center(child: CircularProgressIndicator()),
-              ],
-            );
-          }
-          return VideoReel(
-            reel: widget.reels[index],
-            controller: controller,
-            likeAnimation: _likeAnimation,
-            isLiked: _isLiked,
-            onLike: _toggleLike,
-            onComment: _showCommentSection,
-            onShare: _showShareDialog,
-            onFollow: _followAuthor,
-          );
-        },
+    return AnimatedBuilder(
+      animation: _dismissAnimationController,
+      builder: (context, child) {
+        return Container(
+          color: _backgroundAnimation.value,
+          child: Transform.scale(
+            scale: _scaleAnimation.value,
+            child: Transform.translate(
+              offset: Offset(0, _dragDistance),
+              child: Opacity(
+                opacity: _dismissAnimation.value,
+                child: child,
+              ),
+            ),
+          ),
+        );
+      },
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: GestureDetector(
+          onVerticalDragUpdate: _onVerticalDragUpdate,
+          onVerticalDragEnd: _onVerticalDragEnd,
+          child: PageView.builder(
+            controller: _pageController,
+            scrollDirection: Axis.vertical,
+            itemCount: widget.reels.length,
+            onPageChanged: _onPageChanged,
+            itemBuilder: (context, index) {
+              // Always build the VideoReel, and let it handle the loading state internally.
+              // This ensures the thumbnail is shown while the video is loading.
+              final controller = _videoControllers[index];
+              if (controller == null) {
+                // This can happen if the page is outside the preload range.
+                // Return a placeholder that shows the thumbnail.
+                return Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: widget.reels[index].thumbnailUrl,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
+                    const Center(child: CircularProgressIndicator()),
+                  ],
+                );
+              }
+              return VideoReel(
+                reel: widget.reels[index],
+                controller: controller,
+                likeAnimation: _likeAnimation,
+                isLiked: _isLiked,
+                onLike: _toggleLike,
+                onComment: _showCommentSection,
+                onShare: _showShareDialog,
+                onFollow: _followAuthor,
+              );
+            },
+          ),
+        ),
       ),
     );
   }
