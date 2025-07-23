@@ -15,15 +15,14 @@ class ReelsView extends StatefulWidget {
   State<ReelsView> createState() => _ReelsViewState();
 }
 
-class _ReelsViewState extends State<ReelsView>
-    with TickerProviderStateMixin {
+class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
   late PageController _pageController;
   late List<VideoPlayerController?> _videoControllers;
   late AnimationController _likeAnimationController;
   late Animation<double> _likeAnimation;
   final ValueNotifier<bool> _isLiked = ValueNotifier(false);
   int _currentPage = 0;
-  final int _preloadCount = 2; // Pre-load 2 videos before and after
+  final int _preloadCount = 3; // Pre-load 2 videos before and after
 
   // for swipe up and down to dismiss
   double _dragDistance = 0.0;
@@ -56,8 +55,8 @@ class _ReelsViewState extends State<ReelsView>
               Navigator.of(context).pop();
             }
           });
-    _scaleAnimation =
-        Tween<double>(begin: 1.0, end: 0.8).animate(_dismissAnimationController);
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.8)
+        .animate(_dismissAnimationController);
     _backgroundAnimation = ColorTween(
       begin: Colors.transparent,
       end: Colors.black.withOpacity(0.5),
@@ -101,8 +100,7 @@ class _ReelsViewState extends State<ReelsView>
     for (int i = page - _preloadCount; i <= page + _preloadCount; i++) {
       if (i >= 0 && i < widget.reels.length) {
         if (_videoControllers[i] == null) {
-          _videoControllers[i] =
-              _createVideoPlayerController(widget.reels[i]);
+          _videoControllers[i] = _createVideoPlayerController(widget.reels[i]);
           _videoControllers[i]!.initialize().then((_) {
             _videoControllers[i]!.setLooping(true);
             // Autoplay if it's the current page
@@ -123,11 +121,11 @@ class _ReelsViewState extends State<ReelsView>
       _videoControllers[page]!.play();
     }
   }
-  
+
   void _onPageChanged(int index) {
     _initializeControllersForPage(index);
   }
-  
+
   VideoPlayerController _createVideoPlayerController(Video reel) {
     if (reel.videoType == VideoType.m3u8) {
       return VideoPlayerController.networkUrl(
@@ -140,7 +138,6 @@ class _ReelsViewState extends State<ReelsView>
       return VideoPlayerController.networkUrl(Uri.parse(reel.url));
     }
   }
-
 
   void _toggleLike() {
     _isLiked.value = !_isLiked.value;
@@ -363,7 +360,8 @@ class VideoPlayerWidget extends StatelessWidget {
           return CachedNetworkImage(
             imageUrl: thumbnailUrl,
             fit: BoxFit.cover,
-            placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+            placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator()),
             errorWidget: (context, url, error) => const Icon(Icons.error),
           );
         }
@@ -664,8 +662,10 @@ class VideoProgressBar extends StatelessWidget {
               Expanded(
                 child: SliderTheme(
                   data: SliderTheme.of(context).copyWith(
-                    thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8.0),
-                    overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                    thumbShape:
+                        const RoundSliderThumbShape(enabledThumbRadius: 8.0),
+                    overlayShape:
+                        const RoundSliderOverlayShape(overlayRadius: 16.0),
                     trackHeight: 2.0,
                   ),
                   child: Slider(
