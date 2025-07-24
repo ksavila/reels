@@ -27,68 +27,68 @@ class ReelsExample extends StatefulWidget {
 
 class _ReelsExampleState extends State<ReelsExample> {
   final List<Video> reels = [
-    Video(
-      url: 'http://content.jwplatform.com/manifests/vM7nH0Kl.m3u8',
-      videoType: VideoType.m3u8,
-      title: 'M3U8 Video',
-      likes: 100,
-      comments: 50,
-      thumbnailUrl:
-          'https://images.pexels.com/photos/259915/pexels-photo-259915.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      author: Author(
-        name: 'Flutter',
-        avatarUrl:
-            'https://storage.googleapis.com/cms-storage-bucket/stable-and-reliable.3461c6a5b33c339001c5.jpg',
-        isVerified: true,
-      ),
-      description: 'A beautiful bee collecting nectar from a flower.',
-      tags: ['bee', 'flower', 'nature'],
-      uploadDate: '2022-01-01',
-      location: 'San Francisco, CA',
-      views: 1000,
-    ),
-    Video(
-      url: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
-      title: 'Butterfly',
-      videoType: VideoType.m3u8,
-      likes: 200,
-      comments: 100,
-      thumbnailUrl:
-          'https://images.pexels.com/photos/1123972/pexels-photo-1123972.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      author: Author(
-        name: 'Flutter',
-        avatarUrl:
-            'https://storage.googleapis.com/cms-storage-bucket/stable-and-reliable.3461c6a5b33c339001c5.jpg',
-        isVerified: true,
-      ),
-      description: 'A beautiful butterfly on a leaf.',
-      tags: ['butterfly', 'leaf', 'nature'],
-      uploadDate: '2022-01-02',
-      location: 'New York, NY',
-      views: 2000,
-    ),
-    Video(
-      url:
-          'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8',
-      videoType: VideoType.m3u8,
-      title: 'Apple BipBop Demo',
-      likes: 150,
-      comments: 40,
-      thumbnailUrl:
-          'https://images.pexels.com/photos/919734/pexels-photo-919734.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      author: Author(
-        name: 'Apple Dev',
-        avatarUrl:
-            'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg',
-        isVerified: true,
-      ),
-      description:
-          'Apple HLS advanced example with multiple audio/video tracks.',
-      tags: ['demo', 'apple', 'bipbop'],
-      uploadDate: '2022-01-03',
-      location: 'Cupertino, CA',
-      views: 1200,
-    ),
+    // Video(
+    //   url: 'http://content.jwplatform.com/manifests/vM7nH0Kl.m3u8',
+    //   videoType: VideoType.m3u8,
+    //   title: 'M3U8 Video',
+    //   likes: 100,
+    //   comments: 50,
+    //   thumbnailUrl:
+    //       'https://images.pexels.com/photos/259915/pexels-photo-259915.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+    //   author: Author(
+    //     name: 'Flutter',
+    //     avatarUrl:
+    //         'https://storage.googleapis.com/cms-storage-bucket/stable-and-reliable.3461c6a5b33c339001c5.jpg',
+    //     isVerified: true,
+    //   ),
+    //   description: 'A beautiful bee collecting nectar from a flower.',
+    //   tags: ['bee', 'flower', 'nature'],
+    //   uploadDate: '2022-01-01',
+    //   location: 'San Francisco, CA',
+    //   views: 1000,
+    // ),
+    // Video(
+    //   url: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
+    //   title: 'Butterfly',
+    //   videoType: VideoType.m3u8,
+    //   likes: 200,
+    //   comments: 100,
+    //   thumbnailUrl:
+    //       'https://images.pexels.com/photos/1123972/pexels-photo-1123972.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+    //   author: Author(
+    //     name: 'Flutter',
+    //     avatarUrl:
+    //         'https://storage.googleapis.com/cms-storage-bucket/stable-and-reliable.3461c6a5b33c339001c5.jpg',
+    //     isVerified: true,
+    //   ),
+    //   description: 'A beautiful butterfly on a leaf.',
+    //   tags: ['butterfly', 'leaf', 'nature'],
+    //   uploadDate: '2022-01-02',
+    //   location: 'New York, NY',
+    //   views: 2000,
+    // ),
+    // Video(
+    //   url:
+    //       'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8',
+    //   videoType: VideoType.m3u8,
+    //   title: 'Apple BipBop Demo',
+    //   likes: 150,
+    //   comments: 40,
+    //   thumbnailUrl:
+    //       'https://images.pexels.com/photos/919734/pexels-photo-919734.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+    //   author: Author(
+    //     name: 'Apple Dev',
+    //     avatarUrl:
+    //         'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg',
+    //     isVerified: true,
+    //   ),
+    //   description:
+    //       'Apple HLS advanced example with multiple audio/video tracks.',
+    //   tags: ['demo', 'apple', 'bipbop'],
+    //   uploadDate: '2022-01-03',
+    //   location: 'Cupertino, CA',
+    //   views: 1200,
+    // ),
     Video(
       url:
           'https://d1emoorn8v9q47.cloudfront.net/app_user__18954171_1a48335f-ea1e-47c7-819a-baa82e18042f.mp4',
@@ -97,7 +97,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 300,
       comments: 70,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 1',
         avatarUrl:
@@ -139,7 +139,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 400,
       comments: 110,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 3',
         avatarUrl:
@@ -160,7 +160,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 450,
       comments: 130,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 4',
         avatarUrl:
@@ -181,7 +181,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 500,
       comments: 150,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 5',
         avatarUrl:
@@ -202,7 +202,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 550,
       comments: 170,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 6',
         avatarUrl:
@@ -223,7 +223,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 600,
       comments: 190,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 7',
         avatarUrl:
@@ -244,7 +244,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 650,
       comments: 210,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 8',
         avatarUrl:
@@ -265,7 +265,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 700,
       comments: 230,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 9',
         avatarUrl:
@@ -286,7 +286,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 750,
       comments: 250,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 10',
         avatarUrl:
@@ -307,7 +307,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 800,
       comments: 270,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 11',
         avatarUrl:
@@ -328,7 +328,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 850,
       comments: 290,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 12',
         avatarUrl:
@@ -411,7 +411,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 300,
       comments: 70,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 1',
         avatarUrl:
@@ -453,7 +453,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 400,
       comments: 110,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 3',
         avatarUrl:
@@ -474,7 +474,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 450,
       comments: 130,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 4',
         avatarUrl:
@@ -495,7 +495,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 500,
       comments: 150,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 5',
         avatarUrl:
@@ -516,7 +516,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 550,
       comments: 170,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 6',
         avatarUrl:
@@ -537,7 +537,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 600,
       comments: 190,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 7',
         avatarUrl:
@@ -558,7 +558,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 650,
       comments: 210,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 8',
         avatarUrl:
@@ -579,7 +579,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 700,
       comments: 230,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 9',
         avatarUrl:
@@ -600,7 +600,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 750,
       comments: 250,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 10',
         avatarUrl:
@@ -621,7 +621,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 800,
       comments: 270,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 11',
         avatarUrl:
@@ -642,7 +642,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 850,
       comments: 290,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 12',
         avatarUrl:
@@ -725,7 +725,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 300,
       comments: 70,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 1',
         avatarUrl:
@@ -767,7 +767,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 400,
       comments: 110,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 3',
         avatarUrl:
@@ -788,7 +788,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 450,
       comments: 130,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 4',
         avatarUrl:
@@ -809,7 +809,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 500,
       comments: 150,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 5',
         avatarUrl:
@@ -830,7 +830,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 550,
       comments: 170,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 6',
         avatarUrl:
@@ -851,7 +851,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 600,
       comments: 190,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 7',
         avatarUrl:
@@ -872,7 +872,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 650,
       comments: 210,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 8',
         avatarUrl:
@@ -893,7 +893,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 700,
       comments: 230,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 9',
         avatarUrl:
@@ -914,7 +914,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 750,
       comments: 250,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 10',
         avatarUrl:
@@ -935,7 +935,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 800,
       comments: 270,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 11',
         avatarUrl:
@@ -956,7 +956,7 @@ class _ReelsExampleState extends State<ReelsExample> {
       likes: 850,
       comments: 290,
       thumbnailUrl:
-          'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          'https://thumbs.dreamstime.com/b/placeholder-icon-vector-isolated-white-background-your-web-mobile-app-design-placeholder-logo-concept-placeholder-icon-134071364.jpg',
       author: Author(
         name: 'Video Author 12',
         avatarUrl:

@@ -502,8 +502,14 @@ class VideoDetails extends StatelessWidget {
             spacing: 8.0,
             children: reel.tags
                 .map((tag) => Chip(
-                      label: Text(tag),
-                      backgroundColor: Colors.grey.withOpacity(0.5),
+                      label: Text(
+                        tag,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
+                      backgroundColor: Colors.black.withOpacity(0.5),
                     ))
                 .toList(),
           ),
