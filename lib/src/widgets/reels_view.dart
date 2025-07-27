@@ -22,7 +22,7 @@ class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
   late Animation<double> _likeAnimation;
   final ValueNotifier<bool> _isLiked = ValueNotifier(false);
   int _currentPage = 0;
-  final int _preloadCount = 3; // Pre-load 2 videos before and after
+  final int _preloadCount = 4; // Pre-load 4 videos before and after
 
   // for swipe up and down to dismiss
   double _dragDistance = 0.0;
@@ -752,8 +752,8 @@ class SettingsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
-      child: Column(
+      height: 250,
+      child: ListView(
         children: [
           const ListTile(
             title: Text('Video Quality'),
