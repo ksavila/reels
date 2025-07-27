@@ -268,7 +268,7 @@ class VideoReel extends StatelessWidget {
   final ValueNotifier<bool> isLiked;
 
   const VideoReel({
-    Key? key,
+    super.key,
     required this.reel,
     required this.controller,
     required this.onLike,
@@ -277,7 +277,7 @@ class VideoReel extends StatelessWidget {
     required this.onFollow,
     required this.likeAnimation,
     required this.isLiked,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -387,17 +387,9 @@ class VideoOverlay extends StatelessWidget {
                 child: CircularProgressIndicator(),
               ),
             if (value.position == value.duration && !value.isPlaying)
-              Center(
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.replay,
-                    size: 80,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    controller.seekTo(Duration.zero);
-                    controller.play();
-                  },
+              const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
                 ),
               ),
             if (!value.isPlaying && value.position != value.duration)
@@ -509,7 +501,7 @@ class VideoDetails extends StatelessWidget {
                           fontSize: 16,
                         ),
                       ),
-                      backgroundColor: Colors.black.withOpacity(0.5),
+                      backgroundColor: Colors.black.withOpacity(0.8),
                     ))
                 .toList(),
           ),
