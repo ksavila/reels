@@ -1,6 +1,7 @@
 enum VideoType { network, m3u8 }
 
 class Video {
+  final String id;
   final String url;
   final VideoType videoType;
   final String title;
@@ -15,6 +16,7 @@ class Video {
   final int views;
 
   Video({
+    required this.id,
     required this.url,
     this.videoType = VideoType.network,
     required this.title,
@@ -31,6 +33,7 @@ class Video {
 
   factory Video.fromJson(Map<String, dynamic> json) {
     return Video(
+      id: json['id'],
       url: json['url'],
       videoType: json['videoType'] == 'm3u8' ? VideoType.m3u8 : VideoType.network,
       title: json['title'],
@@ -48,11 +51,13 @@ class Video {
 }
 
 class Author {
+  final String id;
   final String name;
   final String avatarUrl;
   final bool isVerified;
 
   Author({
+    required this.id,
     required this.name,
     required this.avatarUrl,
     required this.isVerified,
@@ -60,6 +65,7 @@ class Author {
 
   factory Author.fromJson(Map<String, dynamic> json) {
     return Author(
+      id: json['id'],
       name: json['name'],
       avatarUrl: json['avatarUrl'],
       isVerified: json['isVerified'],

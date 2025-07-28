@@ -1,3 +1,6 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+- Initial release.
+- Added `ReelsView` widget for displaying short videos.
+- Added customization options for the UI and behavior.
+- Added callbacks for user interactions.
