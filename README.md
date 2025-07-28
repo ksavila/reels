@@ -10,6 +10,7 @@ A Flutter package for displaying short videos like Instagram Reels, TikTok, or Y
 -   **Swipe to Dismiss:** Swipe up or down to dismiss the reels view.
 -   **Custom Action Buttons:** Add your own custom action buttons.
 -   **Show/Hide UI Elements:** Show or hide any UI element like title, description, likes, comments, etc.
+-   **Custom Dialogs:** Provide your own custom widgets for the settings, share, comment, and more options dialogs.
 
 ## Getting started
 
@@ -17,7 +18,7 @@ Add the package to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  reels: ^0.0.1 # Replace with the latest version
+  reels: ^1.0.0 # Replace with the latest version
 ```
 
 Then, import the package in your Dart file:
@@ -102,6 +103,16 @@ class _ReelsExampleState extends State<ReelsExample> {
         },
         onFollow: (authorId) {
           print('Followed author with id: $authorId');
+        },
+        // Example of custom dialog builders
+        commentSectionBuilder: (context, reelId) {
+          return Container(
+            height: 400,
+            color: Colors.white,
+            child: Center(
+              child: Text('Custom comment section for reel $reelId'),
+            ),
+          );
         },
       ),
     );

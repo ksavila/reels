@@ -52,6 +52,14 @@ class ReelsView extends StatefulWidget {
   final int preloadCount;
   final List<Widget>? rightActionButtons;
   final List<Widget>? leftActionButtons;
+  final Widget Function(BuildContext context, String reelId)?
+      settingsDialogBuilder;
+  final Widget Function(BuildContext context, String reelId)?
+      shareDialogBuilder;
+  final Widget Function(BuildContext context, String reelId)?
+      commentSectionBuilder;
+  final Widget Function(BuildContext context, String reelId)?
+      moreOptionsDialogBuilder;
 
   const ReelsView({
     super.key,
@@ -97,6 +105,10 @@ class ReelsView extends StatefulWidget {
     this.preloadCount = 3,
     this.rightActionButtons,
     this.leftActionButtons,
+    this.settingsDialogBuilder,
+    this.shareDialogBuilder,
+    this.commentSectionBuilder,
+    this.moreOptionsDialogBuilder,
   });
 
   @override
@@ -241,10 +253,34 @@ class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
 
   void _showCommentSection() {
     widget.onComment?.call(widget.reels[_currentPage].id);
+    if (widget.commentSectionBuilder != null) {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => widget.commentSectionBuilder!(
+            context, widget.reels[_currentPage].id),
+      );
+    } else {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => const CommentSection(),
+      );
+    }
   }
 
   void _showShareDialog() {
     widget.onShare?.call(widget.reels[_currentPage].id);
+    if (widget.shareDialogBuilder != null) {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) =>
+            widget.shareDialogBuilder!(context, widget.reels[_currentPage].id),
+      );
+    } else {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => const ShareDialog(),
+      );
+    }
   }
 
   void _followAuthor() {
@@ -365,6 +401,9 @@ class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
                 showVolumeControl: widget.showVolumeControl,
                 unlikeIcon: widget.unlikeIcon,
                 verifiedBadge: widget.verifiedBadge,
+                settingsDialogBuilder: widget.settingsDialogBuilder,
+                shareDialogBuilder: widget.shareDialogBuilder,
+                moreOptionsDialogBuilder: widget.moreOptionsDialogBuilder,
               );
             },
           ),
@@ -415,6 +454,12 @@ class VideoReel extends StatelessWidget {
   final bool showLikeAnimation;
   final List<Widget>? rightActionButtons;
   final List<Widget>? leftActionButtons;
+  final Widget Function(BuildContext context, String reelId)?
+      settingsDialogBuilder;
+  final Widget Function(BuildContext context, String reelId)?
+      shareDialogBuilder;
+  final Widget Function(BuildContext context, String reelId)?
+      moreOptionsDialogBuilder;
 
   const VideoReel({
     super.key,
@@ -458,6 +503,9 @@ class VideoReel extends StatelessWidget {
     required this.showLikeAnimation,
     this.rightActionButtons,
     this.leftActionButtons,
+    this.settingsDialogBuilder,
+    this.shareDialogBuilder,
+    this.moreOptionsDialogBuilder,
   });
 
   @override
@@ -543,17 +591,31 @@ class VideoReel extends StatelessWidget {
   }
 
   void _showSettingsDialog(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => const SettingsDialog(),
-    );
+    if (settingsDialogBuilder != null) {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => settingsDialogBuilder!(context, reel.id),
+      );
+    } else {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => const SettingsDialog(),
+      );
+    }
   }
 
   void _showMoreOptionsDialog(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => const MoreOptionsDialog(),
-    );
+    if (moreOptionsDialogBuilder != null) {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => moreOptionsDialogBuilder!(context, reel.id),
+      );
+    } else {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => const MoreOptionsDialog(),
+      );
+    }
   }
 }
 
@@ -1084,7 +1146,7 @@ class SettingsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 250,
       child: ListView(
         children: [
@@ -1123,7 +1185,7 @@ class ShareDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 200,
       child: Column(
         children: [
@@ -1157,7 +1219,7 @@ class CommentSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 400,
       child: Column(
         children: [
@@ -1194,7 +1256,7 @@ class MoreOptionsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 200,
       child: Column(
         children: [
