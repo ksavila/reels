@@ -685,8 +685,12 @@ class VideoPlayerWidget extends StatelessWidget {
       valueListenable: controller,
       builder: (context, value, child) {
         if (value.isInitialized) {
+          // Use BoxFit.contain for landscape videos, otherwise use the provided videoFit
+          final isLandscape = value.size.width > value.size.height;
+          final effectiveFit = isLandscape ? BoxFit.contain : videoFit;
+
           return FittedBox(
-            fit: videoFit,
+            fit: effectiveFit,
             child: SizedBox(
               width: value.size.width,
               height: value.size.height,
