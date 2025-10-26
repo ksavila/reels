@@ -881,12 +881,12 @@ class VideoDetails extends StatelessWidget {
               ),
             ),
           if (showTitle) const SizedBox(height: 10),
-          if (showDescription)
+          if (showDescription && reel.description.isNotEmpty)
             Text(
               reel.description,
               style: const TextStyle(color: Colors.white),
             ),
-          if (showDescription) const SizedBox(height: 10),
+          if (showDescription && reel.description.isNotEmpty) const SizedBox(height: 10),
           if (showTags)
             Wrap(
               spacing: 8.0,
