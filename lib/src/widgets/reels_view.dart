@@ -23,10 +23,12 @@ class ReelsView extends StatefulWidget {
   final Widget? followText;
   final Widget? verifiedBadge;
   final Color? progressBarColor;
+  final Color? defaultAvatarColor;
   final Widget? loadingWidget;
   final Widget? errorWidget;
   final bool showProgress;
   final bool loop;
+  final bool autoPlay;
   final bool showVerifiedTick;
   final bool showAuthor;
   final bool showLikes;
@@ -76,10 +78,12 @@ class ReelsView extends StatefulWidget {
     this.followText,
     this.verifiedBadge,
     this.progressBarColor,
+    this.defaultAvatarColor,
     this.loadingWidget,
     this.errorWidget,
     this.showProgress = true,
     this.loop = true,
+    this.autoPlay = true,
     this.showVerifiedTick = true,
     this.showAuthor = true,
     this.showLikes = true,
@@ -113,6 +117,17 @@ class ReelsView extends StatefulWidget {
 
   @override
   State<ReelsView> createState() => _ReelsViewState();
+
+  /// Creates a GlobalKey that can be used to control playback
+  /// Example:
+  /// ```dart
+  /// final reelsKey = GlobalKey<ReelsViewState>();
+  /// ReelsView(key: reelsKey, ...)
+  /// // Later:
+  /// reelsKey.currentState?.play();
+  /// reelsKey.currentState?.pause();
+  /// ```
+  static GlobalKey<_ReelsViewState> createKey() => GlobalKey<_ReelsViewState>();
 }
 
 class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
@@ -205,8 +220,8 @@ class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
           _videoControllers[i] = _createVideoPlayerController(widget.reels[i]);
           _videoControllers[i]!.initialize().then((_) {
             _videoControllers[i]!.setLooping(widget.loop);
-            // Autoplay if it's the current page
-            if (i == _currentPage) {
+            // Autoplay if it's the current page and autoPlay is enabled
+            if (i == _currentPage && widget.autoPlay) {
               _videoControllers[i]!.play();
             }
             if (mounted) {
@@ -217,8 +232,9 @@ class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
       }
     }
 
-    // Ensure the current page plays if it was already initialized
-    if (_videoControllers[page] != null &&
+    // Ensure the current page plays if it was already initialized and autoPlay is enabled
+    if (widget.autoPlay &&
+        _videoControllers[page] != null &&
         _videoControllers[page]!.value.isInitialized) {
       _videoControllers[page]!.play();
     }
@@ -226,6 +242,31 @@ class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
 
   void _onPageChanged(int index) {
     _initializeControllersForPage(index);
+  }
+
+  /// Manually play the current video
+  void play() {
+    if (_videoControllers[_currentPage] != null &&
+        _videoControllers[_currentPage]!.value.isInitialized) {
+      _videoControllers[_currentPage]!.play();
+    }
+  }
+
+  /// Manually pause the current video
+  void pause() {
+    if (_videoControllers[_currentPage] != null &&
+        _videoControllers[_currentPage]!.value.isInitialized) {
+      _videoControllers[_currentPage]!.pause();
+    }
+  }
+
+  /// Check if the current video is playing
+  bool get isPlaying {
+    if (_videoControllers[_currentPage] != null &&
+        _videoControllers[_currentPage]!.value.isInitialized) {
+      return _videoControllers[_currentPage]!.value.isPlaying;
+    }
+    return false;
   }
 
   VideoPlayerController _createVideoPlayerController(Video reel) {
@@ -378,6 +419,7 @@ class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
                 likeIcon: widget.likeIcon,
                 loadingWidget: widget.loadingWidget,
                 progressBarColor: widget.progressBarColor,
+                defaultAvatarColor: widget.defaultAvatarColor,
                 rightActionButtons: widget.rightActionButtons,
                 shareIcon: widget.shareIcon,
                 showAuthor: widget.showAuthor,
@@ -432,6 +474,7 @@ class VideoReel extends StatelessWidget {
   final Widget? followText;
   final Widget? verifiedBadge;
   final Color? progressBarColor;
+  final Color? defaultAvatarColor;
   final Widget? loadingWidget;
   final Widget? errorWidget;
   final bool showProgress;
@@ -482,6 +525,7 @@ class VideoReel extends StatelessWidget {
     this.followText,
     this.verifiedBadge,
     this.progressBarColor,
+    this.defaultAvatarColor,
     this.loadingWidget,
     this.errorWidget,
     required this.showProgress,
@@ -548,6 +592,7 @@ class VideoReel extends StatelessWidget {
             shareIcon: shareIcon,
             followText: followText,
             verifiedBadge: verifiedBadge,
+            defaultAvatarColor: defaultAvatarColor,
             showAuthor: showAuthor,
             showComments: showComments,
             showDescription: showDescription,
@@ -761,6 +806,7 @@ class VideoDetails extends StatelessWidget {
   final Widget? shareIcon;
   final Widget? followText;
   final Widget? verifiedBadge;
+  final Color? defaultAvatarColor;
   final bool showVerifiedTick;
   final bool showAuthor;
   final bool showLikes;
@@ -786,6 +832,7 @@ class VideoDetails extends StatelessWidget {
     this.shareIcon,
     this.followText,
     this.verifiedBadge,
+    this.defaultAvatarColor,
     required this.showVerifiedTick,
     required this.showAuthor,
     required this.showLikes,
@@ -814,6 +861,7 @@ class VideoDetails extends StatelessWidget {
               onFollow: onFollow,
               followText: followText,
               verifiedBadge: verifiedBadge,
+              defaultAvatarColor: defaultAvatarColor,
               showFollowButton: showFollowButton,
               showVerifiedTick: showVerifiedTick,
             ),
@@ -882,6 +930,7 @@ class AuthorInfo extends StatelessWidget {
   final VoidCallback onFollow;
   final Widget? followText;
   final Widget? verifiedBadge;
+  final Color? defaultAvatarColor;
   final bool showVerifiedTick;
   final bool showFollowButton;
 
@@ -891,16 +940,29 @@ class AuthorInfo extends StatelessWidget {
     required this.onFollow,
     this.followText,
     this.verifiedBadge,
+    this.defaultAvatarColor,
     required this.showVerifiedTick,
     required this.showFollowButton,
   });
 
   @override
   Widget build(BuildContext context) {
+    final hasAvatar = author.avatarUrl.isNotEmpty;
+    final avatarColor = defaultAvatarColor ?? Colors.blueGrey;
+    final firstLetter = author.name.isNotEmpty ? author.name[0].toUpperCase() : '?';
+
     return Row(
       children: [
         CircleAvatar(
-          backgroundImage: CachedNetworkImageProvider(author.avatarUrl),
+          backgroundImage: hasAvatar ? CachedNetworkImageProvider(author.avatarUrl) : null,
+          backgroundColor: hasAvatar ? null : avatarColor,
+          child: hasAvatar ? null : Text(
+            firstLetter,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         const SizedBox(width: 10),
         Text(
