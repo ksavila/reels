@@ -24,6 +24,7 @@ class ReelsView extends StatefulWidget {
   final Widget? verifiedBadge;
   final Color? progressBarColor;
   final Color? defaultAvatarColor;
+  final BoxFit videoFit;
   final Widget? loadingWidget;
   final Widget? errorWidget;
   final bool showProgress;
@@ -79,6 +80,7 @@ class ReelsView extends StatefulWidget {
     this.verifiedBadge,
     this.progressBarColor,
     this.defaultAvatarColor,
+    this.videoFit = BoxFit.cover,
     this.loadingWidget,
     this.errorWidget,
     this.showProgress = true,
@@ -117,17 +119,6 @@ class ReelsView extends StatefulWidget {
 
   @override
   State<ReelsView> createState() => _ReelsViewState();
-
-  /// Creates a GlobalKey that can be used to control playback
-  /// Example:
-  /// ```dart
-  /// final reelsKey = GlobalKey<ReelsViewState>();
-  /// ReelsView(key: reelsKey, ...)
-  /// // Later:
-  /// reelsKey.currentState?.play();
-  /// reelsKey.currentState?.pause();
-  /// ```
-  static GlobalKey<_ReelsViewState> createKey() => GlobalKey<_ReelsViewState>();
 }
 
 class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
@@ -420,6 +411,7 @@ class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
                 loadingWidget: widget.loadingWidget,
                 progressBarColor: widget.progressBarColor,
                 defaultAvatarColor: widget.defaultAvatarColor,
+                videoFit: widget.videoFit,
                 rightActionButtons: widget.rightActionButtons,
                 shareIcon: widget.shareIcon,
                 showAuthor: widget.showAuthor,
@@ -475,6 +467,7 @@ class VideoReel extends StatelessWidget {
   final Widget? verifiedBadge;
   final Color? progressBarColor;
   final Color? defaultAvatarColor;
+  final BoxFit videoFit;
   final Widget? loadingWidget;
   final Widget? errorWidget;
   final bool showProgress;
@@ -526,6 +519,7 @@ class VideoReel extends StatelessWidget {
     this.verifiedBadge,
     this.progressBarColor,
     this.defaultAvatarColor,
+    required this.videoFit,
     this.loadingWidget,
     this.errorWidget,
     required this.showProgress,
@@ -574,6 +568,7 @@ class VideoReel extends StatelessWidget {
           VideoPlayerWidget(
             controller: controller,
             thumbnailUrl: reel.thumbnailUrl,
+            videoFit: videoFit,
             loadingWidget: loadingWidget,
             errorWidget: errorWidget,
           ),
@@ -671,6 +666,7 @@ class VideoReel extends StatelessWidget {
 class VideoPlayerWidget extends StatelessWidget {
   final VideoPlayerController controller;
   final String thumbnailUrl;
+  final BoxFit videoFit;
   final Widget? loadingWidget;
   final Widget? errorWidget;
 
@@ -678,6 +674,7 @@ class VideoPlayerWidget extends StatelessWidget {
     super.key,
     required this.controller,
     required this.thumbnailUrl,
+    required this.videoFit,
     this.loadingWidget,
     this.errorWidget,
   });
@@ -688,9 +685,13 @@ class VideoPlayerWidget extends StatelessWidget {
       valueListenable: controller,
       builder: (context, value, child) {
         if (value.isInitialized) {
-          return AspectRatio(
-            aspectRatio: value.aspectRatio,
-            child: VideoPlayer(controller),
+          return FittedBox(
+            fit: videoFit,
+            child: SizedBox(
+              width: value.size.width,
+              height: value.size.height,
+              child: VideoPlayer(controller),
+            ),
           );
         } else if (value.hasError) {
           return errorWidget ??
