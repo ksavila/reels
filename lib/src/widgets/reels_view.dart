@@ -398,6 +398,7 @@ class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
                 showTitle: widget.showTitle,
                 showUploadDate: widget.showUploadDate,
                 showVerifiedTick: widget.showVerifiedTick,
+                showViews: widget.showViews,
                 showVolumeControl: widget.showVolumeControl,
                 unlikeIcon: widget.unlikeIcon,
                 verifiedBadge: widget.verifiedBadge,
@@ -439,6 +440,7 @@ class VideoReel extends StatelessWidget {
   final bool showLikes;
   final bool showComments;
   final bool showShares;
+  final bool showViews;
   final bool showTags;
   final bool showDescription;
   final bool showTitle;
@@ -488,6 +490,7 @@ class VideoReel extends StatelessWidget {
     required this.showLikes,
     required this.showComments,
     required this.showShares,
+    required this.showViews,
     required this.showTags,
     required this.showDescription,
     required this.showTitle,
@@ -555,6 +558,7 @@ class VideoReel extends StatelessWidget {
             showUploadDate: showUploadDate,
             showVerifiedTick: showVerifiedTick,
             showShares: showShares,
+            showViews: showViews,
           ),
           if (showProgress)
             VideoProgressBar(
@@ -762,6 +766,7 @@ class VideoDetails extends StatelessWidget {
   final bool showLikes;
   final bool showComments;
   final bool showShares;
+  final bool showViews;
   final bool showTags;
   final bool showDescription;
   final bool showTitle;
@@ -786,6 +791,7 @@ class VideoDetails extends StatelessWidget {
     required this.showLikes,
     required this.showComments,
     required this.showShares,
+    required this.showViews,
     required this.showTags,
     required this.showDescription,
     required this.showTitle,
@@ -863,6 +869,7 @@ class VideoDetails extends StatelessWidget {
             showComments: showComments,
             showLikes: showLikes,
             showShares: showShares,
+            showViews: showViews,
           ),
         ],
       ),
@@ -937,6 +944,7 @@ class EngagementStats extends StatelessWidget {
   final bool showLikes;
   final bool showComments;
   final bool showShares;
+  final bool showViews;
 
   const EngagementStats({
     super.key,
@@ -951,6 +959,7 @@ class EngagementStats extends StatelessWidget {
     required this.showLikes,
     required this.showComments,
     required this.showShares,
+    required this.showViews,
   });
 
   @override
@@ -958,16 +967,17 @@ class EngagementStats extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            const Icon(Icons.visibility, color: Colors.white),
-            const SizedBox(width: 10),
-            Text(
-              reel.views.toString(),
-              style: const TextStyle(color: Colors.white),
-            ),
-          ],
-        ),
+        if (showViews)
+          Row(
+            children: [
+              const Icon(Icons.visibility, color: Colors.white),
+              const SizedBox(width: 10),
+              Text(
+                reel.views.toString(),
+                style: const TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         if (showLikes)
           ValueListenableBuilder<bool>(
             valueListenable: isLiked,
@@ -1034,44 +1044,49 @@ class VideoProgressBar extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: controller,
         builder: (context, value, child) {
-          return Row(
-            children: [
-              SizedBox(
-                width: 100,
-                child: Text(
-                  '${value.position.inMinutes.toString().padLeft(2, '0')}:${(value.position.inSeconds % 60).toString().padLeft(2, '0')}',
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-              Expanded(
-                child: SliderTheme(
-                  data: SliderTheme.of(context).copyWith(
-                    thumbShape:
-                        const RoundSliderThumbShape(enabledThumbRadius: 8.0),
-                    overlayShape:
-                        const RoundSliderOverlayShape(overlayRadius: 16.0),
-                    trackHeight: 2.0,
-                  ),
-                  child: Slider(
-                    value: value.position.inSeconds.toDouble(),
-                    min: 0.0,
-                    max: value.duration.inSeconds.toDouble(),
-                    onChanged: (value) {
-                      controller.seekTo(Duration(seconds: value.toInt()));
-                    },
-                    activeColor: color ?? Colors.red,
-                    inactiveColor: Colors.grey,
+          return SizedBox(
+            width: double.infinity,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 50,
+                  child: Text(
+                    '${value.position.inMinutes.toString().padLeft(2, '0')}:${(value.position.inSeconds % 60).toString().padLeft(2, '0')}',
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 100,
-                child: Text(
-                  '${value.duration.inMinutes.toString().padLeft(2, '0')}:${(value.duration.inSeconds % 60).toString().padLeft(2, '0')}',
-                  style: const TextStyle(color: Colors.white),
+                Expanded(
+                  child: SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      thumbShape:
+                          const RoundSliderThumbShape(enabledThumbRadius: 6.0),
+                      overlayShape:
+                          const RoundSliderOverlayShape(overlayRadius: 12.0),
+                      trackHeight: 2.0,
+                    ),
+                    child: Slider(
+                      value: value.position.inSeconds.toDouble(),
+                      min: 0.0,
+                      max: value.duration.inSeconds.toDouble(),
+                      onChanged: (value) {
+                        controller.seekTo(Duration(seconds: value.toInt()));
+                      },
+                      activeColor: color ?? Colors.red,
+                      inactiveColor: Colors.grey,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: 50,
+                  child: Text(
+                    '${value.duration.inMinutes.toString().padLeft(2, '0')}:${(value.duration.inSeconds % 60).toString().padLeft(2, '0')}',
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                    textAlign: TextAlign.right,
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),

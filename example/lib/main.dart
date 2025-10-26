@@ -303,7 +303,6 @@ class _ReelsExampleState extends State<ReelsExample> {
       location: 'Houston, TX',
       views: 15000,
     ),
-
     Video(
       id: '13',
       url:
@@ -1223,7 +1222,6 @@ class _ReelsExampleState extends State<ReelsExample> {
       location: '',
       views: 0,
     ),
-
     Video(
       id: '53',
       url:
@@ -1385,7 +1383,6 @@ class _ReelsExampleState extends State<ReelsExample> {
       location: 'Los Angeles, CA',
       views: 10000,
     ),
-
     Video(
       id: '60',
       url:
@@ -1482,6 +1479,21 @@ class _ReelsExampleState extends State<ReelsExample> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: ReelsView(reels: reels));
+    return Scaffold(
+        body: ReelsView(
+      reels: reels,
+      showLikes: false,
+      progressBarColor: Colors.amber,
+      showComments: false,
+      showShares: false,
+      showViews: false,
+      showVerifiedTick: false,
+      showFollowButton: false,
+      showVolumeControl: false,
+      showMoreOptions: false,
+      showDescription: false,
+      showSettings: false,
+      showTitle: false,
+    ));
   }
 }
