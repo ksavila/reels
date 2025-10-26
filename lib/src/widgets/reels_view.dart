@@ -1149,7 +1149,7 @@ class VideoProgressBar extends StatelessWidget {
                   child: Text(
                     '${value.duration.inMinutes.toString().padLeft(2, '0')}:${(value.duration.inSeconds % 60).toString().padLeft(2, '0')}',
                     style: const TextStyle(color: Colors.white, fontSize: 12),
-                    textAlign: TextAlign.right,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],
