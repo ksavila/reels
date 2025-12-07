@@ -886,7 +886,8 @@ class VideoDetails extends StatelessWidget {
               reel.description,
               style: const TextStyle(color: Colors.white),
             ),
-          if (showDescription && reel.description.isNotEmpty) const SizedBox(height: 10),
+          if (showDescription && reel.description.isNotEmpty)
+            const SizedBox(height: 10),
           if (showTags)
             Wrap(
               spacing: 8.0,
@@ -954,20 +955,24 @@ class AuthorInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final hasAvatar = author.avatarUrl.isNotEmpty;
     final avatarColor = defaultAvatarColor ?? Colors.blueGrey;
-    final firstLetter = author.name.isNotEmpty ? author.name[0].toUpperCase() : '?';
+    final firstLetter =
+        author.name.isNotEmpty ? author.name[0].toUpperCase() : '?';
 
     return Row(
       children: [
         CircleAvatar(
-          backgroundImage: hasAvatar ? CachedNetworkImageProvider(author.avatarUrl) : null,
+          backgroundImage:
+              hasAvatar ? CachedNetworkImageProvider(author.avatarUrl) : null,
           backgroundColor: hasAvatar ? null : avatarColor,
-          child: hasAvatar ? null : Text(
-            firstLetter,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          child: hasAvatar
+              ? null
+              : Text(
+                  firstLetter,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
         ),
         const SizedBox(width: 10),
         Text(
