@@ -157,7 +157,14 @@ class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
         Tween<double>(begin: 1.0, end: 0.0).animate(_dismissAnimationController)
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              Navigator.of(context).pop();
+              if (Navigator.of(context).canPop()) {
+                Navigator.of(context).pop();
+              } else {
+                _dismissAnimationController.reverse();
+                setState(() {
+                  _dragDistance = 0;
+                });
+              }
             }
           });
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.8)
@@ -321,6 +328,7 @@ class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
 
   void _onVerticalDragUpdate(DragUpdateDetails details) {
     if (!widget.allowSwipeToDismiss) return;
+    if (!Navigator.of(context).canPop()) return;
     setState(() {
       _dragDistance += details.delta.dy;
       // Update animation value based on drag distance
@@ -332,7 +340,8 @@ class _ReelsViewState extends State<ReelsView> with TickerProviderStateMixin {
   void _onVerticalDragEnd(DragEndDetails details) {
     if (!widget.allowSwipeToDismiss) return;
     final velocity = details.primaryVelocity ?? 0;
-    if (velocity.abs() > 500 || _dragDistance.abs() > 100) {
+    final shouldDismiss = velocity.abs() > 500 || _dragDistance.abs() > 100;
+    if (shouldDismiss && Navigator.of(context).canPop()) {
       _dismissAnimationController.forward();
     } else {
       _dismissAnimationController.reverse().then((_) {
